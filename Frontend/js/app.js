@@ -27,6 +27,8 @@ const app = {
     localStorage.setItem('looply_theme', theme);
     const label = document.getElementById('theme-label');
     if (label) label.textContent = theme === 'light' ? 'Light Mode' : 'Dark Mode';
+    const mobileIcon = document.getElementById('mobile-theme-icon');
+    if (mobileIcon) mobileIcon.textContent = theme === 'light' ? '☀️' : '🌙';
   },
 
   toggleTheme() {
@@ -152,6 +154,15 @@ const app = {
 
     document.querySelectorAll('.looply-nav-item').forEach((i) => i.classList.remove('active'));
 
+    // Toggle right sidebar only via class, never inline display
+    if (sideBar) {
+      if (view === 'feed') {
+        sideBar.classList.remove('hidden-sidebar');
+      } else {
+        sideBar.classList.add('hidden-sidebar');
+      }
+    }
+
     if (view === 'feed') {
       const nav = document.getElementById('nav-feed');
       if (nav) nav.classList.add('active');
@@ -159,7 +170,6 @@ const app = {
       if (profileView) profileView.style.display = 'none';
       if (exploreView) exploreView.style.display = 'none';
       if (bookmarksView) bookmarksView.style.display = 'none';
-      if (sideBar) sideBar.style.display = 'flex';
       feed.loadFeed();
     } else if (view === 'profile') {
       const nav = document.getElementById('nav-profile');
@@ -169,6 +179,10 @@ const app = {
         this.showAuthModal('login');
         return;
       }
+      if (feedView) feedView.style.display = 'none';
+      if (exploreView) exploreView.style.display = 'none';
+      if (bookmarksView) bookmarksView.style.display = 'none';
+      if (profileView) profileView.style.display = 'block';
       profile.loadProfile(identifier);
     } else if (view === 'explore') {
       const nav = document.getElementById('nav-explore');
@@ -176,7 +190,6 @@ const app = {
       if (feedView) feedView.style.display = 'none';
       if (profileView) profileView.style.display = 'none';
       if (bookmarksView) bookmarksView.style.display = 'none';
-      if (sideBar) sideBar.style.display = 'none';
       if (exploreView) exploreView.style.display = 'block';
       this.loadExplorePage();
     } else if (view === 'bookmarks') {
@@ -185,7 +198,6 @@ const app = {
       if (feedView) feedView.style.display = 'none';
       if (profileView) profileView.style.display = 'none';
       if (exploreView) exploreView.style.display = 'none';
-      if (sideBar) sideBar.style.display = 'none';
       if (bookmarksView) bookmarksView.style.display = 'block';
       this.loadBookmarksPage();
     }

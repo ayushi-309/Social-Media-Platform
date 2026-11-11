@@ -859,6 +859,15 @@ body {
   opacity: 1;
 }
 
+/* Mobile Header Hidden on Desktop */
+.looply-mobile-header {
+  display: none;
+}
+
+.hidden-sidebar {
+  display: none !important;
+}
+
 /* ==========================================================================
    RIGHT SIDEBAR WIDGETS
    ========================================================================== */
@@ -868,11 +877,17 @@ body {
   display: none;
 }
 
-@media (min-width: 1100px) {
+@media (min-width: 1081px) {
   .looply-right-sidebar {
     display: flex;
     flex-direction: column;
     gap: 18px;
+  }
+}
+
+@media (max-width: 1080px) {
+  .looply-right-sidebar {
+    display: none !important;
   }
 }
 
@@ -1301,8 +1316,48 @@ body {
   color: var(--text-muted);
 }
 
-/* Responsive Mobile Navigation */
+/* ==========================================================================
+   MOBILE RESPONSIVENESS (PHONES & TABLETS <= 768px)
+   ========================================================================== */
 @media (max-width: 768px) {
+  html, body {
+    overflow-x: hidden;
+    width: 100%;
+  }
+
+  .looply-app {
+    flex-direction: column;
+    width: 100%;
+    overflow-x: hidden;
+  }
+
+  /* Sticky Top Header on Mobile */
+  .looply-mobile-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 14px;
+    position: sticky;
+    top: 0;
+    background: var(--surface);
+    border-bottom: 1px solid var(--border);
+    z-index: 999;
+    backdrop-filter: blur(12px);
+    width: 100%;
+  }
+
+  .looply-mobile-actions {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  /* Hide Desktop Right Sidebar on Mobile Completely */
+  .looply-right-sidebar {
+    display: none !important;
+  }
+
+  /* Fixed Bottom Bar on Mobile */
   .looply-sidebar {
     position: fixed;
     bottom: 0;
@@ -1310,15 +1365,21 @@ body {
     left: 0;
     right: 0;
     width: 100%;
-    height: 58px;
+    height: 56px;
     border-right: none;
     border-top: 1px solid var(--border);
     flex-direction: row;
-    padding: 0 16px;
+    padding: 0 8px;
     align-items: center;
+    background: var(--surface);
+    z-index: 1000;
+    box-shadow: 0 -4px 16px rgba(0, 0, 0, 0.4);
   }
 
-  .looply-logo, .btn-looply-primary, .looply-sidebar-bottom, .looply-nav-item span {
+  .looply-sidebar .looply-logo,
+  .looply-sidebar .btn-looply-primary,
+  .looply-sidebar .looply-sidebar-bottom,
+  .looply-sidebar .looply-nav-item span {
     display: none !important;
   }
 
@@ -1326,11 +1387,495 @@ body {
     flex-direction: row;
     width: 100%;
     justify-content: space-around;
+    gap: 0;
   }
 
+  .looply-nav-item {
+    padding: 8px 12px;
+    border-radius: var(--radius-md);
+  }
+
+  .looply-nav-item svg {
+    width: 24px;
+    height: 24px;
+  }
+
+  /* Main Feed on Mobile */
   .looply-main {
-    padding-bottom: 74px;
+    padding: 10px 8px 76px 8px !important;
+    width: 100%;
+    max-width: 100%;
+    overflow-x: hidden;
+    display: flex;
+    justify-content: center;
+  }
+
+  .looply-feed-container {
+    width: 100% !important;
+    max-width: 100% !important;
+    gap: 14px;
+    margin: 0 auto;
+  }
+
+  .looply-post {
+    border-radius: var(--radius-md);
+    width: 100%;
+  }
+
+  .looply-post-header {
+    padding: 10px 12px;
+  }
+
+  .looply-post-actions {
+    padding: 10px 12px 4px 12px;
+  }
+
+  .looply-likes-row,
+  .looply-caption-row,
+  .looply-comments-toggle {
     padding-left: 12px;
     padding-right: 12px;
   }
+
+  .looply-add-comment-bar {
+    padding: 8px 12px;
+  }
+
+  /* Loops / Stories Tray on Mobile */
+  .loops-tray-card {
+    padding: 10px 8px;
+    border-radius: var(--radius-md);
+    width: 100%;
+  }
+
+  .loops-tray {
+    -webkit-overflow-scrolling: touch;
+    gap: 12px;
+  }
+
+  .loop-story-item {
+    width: 60px;
+  }
+
+  .loop-ring {
+    width: 56px;
+    height: 56px;
+  }
+
+  /* Profile on Mobile */
+  .looply-profile-header {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 14px;
+    padding: 8px 10px;
+  }
+
+  .looply-profile-avatar-ring {
+    width: 86px;
+    height: 86px;
+  }
+
+  .looply-profile-top-row {
+    justify-content: center;
+  }
+
+  .looply-profile-stats {
+    justify-content: center;
+    width: 100%;
+    gap: 16px;
+  }
+
+  .looply-grid-container {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 4px;
+  }
+
+  /* Modals on Mobile */
+  .modal-card {
+    max-width: 95vw !important;
+    margin: 10px;
+    border-radius: var(--radius-lg);
+  }
+
+  .demo-account-grid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 6px;
+  }
+
+  .btn-demo-chip {
+    padding: 6px 4px;
+  }
+
+  .btn-demo-chip img {
+    width: 24px;
+    height: 24px;
+  }
+
+  .btn-demo-chip span {
+    font-size: 10px;
+  }
+}
+
+
+/* ==========================================================================
+   LOOPLY REELS (SHORT CLIPS / VERTICAL FEED)
+   ========================================================================== */
+.looply-reels-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 24px;
+  width: 100%;
+  max-width: 480px;
+  margin: 0 auto;
+}
+
+.looply-reel-card {
+  width: 100%;
+  height: 82vh;
+  max-height: 720px;
+  border-radius: var(--radius-xl);
+  overflow: hidden;
+  position: relative;
+  background: #000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid var(--border);
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.6);
+}
+
+.looply-reel-media {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Reels Vertical Action Bar */
+.looply-reel-actions {
+  position: absolute;
+  right: 16px;
+  bottom: 24px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 18px;
+  z-index: 10;
+}
+
+.looply-reel-action-btn {
+  background: none;
+  border: none;
+  color: white;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  cursor: pointer;
+  filter: drop-shadow(0 2px 4px rgba(0,0,0,0.6));
+  transition: transform 0.15s ease;
+}
+
+.looply-reel-action-btn:hover {
+  transform: scale(1.15);
+}
+
+.looply-reel-action-btn span {
+  font-family: var(--font-brand);
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.looply-reel-music-disc {
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  border: 2px solid white;
+  overflow: hidden;
+  animation: spinDisc 3s linear infinite;
+  box-shadow: 0 0 10px rgba(0,0,0,0.5);
+}
+
+@keyframes spinDisc {
+  to { transform: rotate(360deg); }
+}
+
+/* Reels Info Overlay */
+.looply-reel-info {
+  position: absolute;
+  bottom: 20px;
+  left: 18px;
+  right: 68px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  z-index: 10;
+  color: white;
+  text-shadow: 0 1px 4px rgba(0, 0, 0, 0.7);
+}
+
+.looply-reel-user-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.looply-reel-avatar {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 1.5px solid white;
+}
+
+.btn-looply-reel-follow {
+  background: rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(4px);
+  border: 1px solid white;
+  color: white;
+  padding: 4px 12px;
+  border-radius: var(--radius-full);
+  font-family: var(--font-brand);
+  font-size: 12px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.btn-looply-reel-follow:hover {
+  background: white;
+  color: black;
+}
+
+.looply-reel-caption {
+  font-size: 13.5px;
+  line-height: 1.4;
+}
+
+/* ==========================================================================
+   LOOPLY DIRECT MESSAGES (CHAT)
+   ========================================================================== */
+.looply-dm-container {
+  width: 100%;
+  max-width: 900px;
+  height: 82vh;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-xl);
+  display: grid;
+  grid-template-columns: 300px 1fr;
+  overflow: hidden;
+  background: var(--surface-card);
+  box-shadow: var(--shadow-card);
+}
+
+.looply-dm-sidebar {
+  border-right: 1px solid var(--border);
+  display: flex;
+  flex-direction: column;
+}
+
+.looply-dm-sidebar-header {
+  padding: 16px 20px;
+  border-bottom: 1px solid var(--border);
+  font-family: var(--font-brand);
+  font-size: 16px;
+  font-weight: 800;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.looply-dm-list {
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+  flex: 1;
+}
+
+.looply-dm-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 18px;
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.looply-dm-item:hover, .looply-dm-item.active {
+  background: var(--surface-hover);
+}
+
+.looply-dm-avatar {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.looply-dm-meta {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  flex: 1;
+  overflow: hidden;
+}
+
+.looply-dm-username {
+  font-family: var(--font-brand);
+  font-size: 13.5px;
+  font-weight: 700;
+}
+
+.looply-dm-preview {
+  font-size: 12px;
+  color: var(--text-muted);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* DM Active Pane */
+.looply-dm-chat-pane {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.looply-dm-chat-header {
+  padding: 14px 20px;
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.looply-dm-messages-stream {
+  flex: 1;
+  padding: 20px;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.looply-bubble {
+  max-width: 65%;
+  padding: 10px 16px;
+  border-radius: 18px;
+  font-size: 14px;
+  line-height: 1.4;
+  word-break: break-word;
+}
+
+.looply-bubble.incoming {
+  align-self: flex-start;
+  background: var(--surface-active);
+  color: var(--text-main);
+  border-bottom-left-radius: 4px;
+}
+
+.looply-bubble.outgoing {
+  align-self: flex-end;
+  background: var(--looply-gradient);
+  color: white;
+  border-bottom-right-radius: 4px;
+}
+
+.looply-dm-input-bar {
+  padding: 12px 18px;
+  border-top: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.looply-dm-input {
+  flex: 1;
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-full);
+  padding: 10px 18px;
+  color: var(--text-main);
+  font-size: 13.5px;
+  outline: none;
+}
+
+.btn-looply-send-dm {
+  background: none;
+  border: none;
+  color: var(--looply-primary);
+  font-family: var(--font-brand);
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+/* ==========================================================================
+   LOOPLY NOTIFICATIONS / ACTIVITY
+   ========================================================================== */
+.looply-activity-container {
+  width: 100%;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.looply-activity-header {
+  font-family: var(--font-brand);
+  font-size: 20px;
+  font-weight: 800;
+  margin-bottom: 18px;
+}
+
+.looply-activity-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.looply-activity-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 10px 14px;
+  background: var(--surface-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-card);
+}
+
+.looply-activity-avatar {
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  object-fit: cover;
+  flex-shrink: 0;
+}
+
+.looply-activity-text {
+  font-size: 13.5px;
+  flex: 1;
+}
+
+.looply-activity-text strong {
+  font-family: var(--font-brand);
+  cursor: pointer;
+}
+
+.looply-activity-thumb {
+  width: 42px;
+  height: 42px;
+  border-radius: var(--radius-sm);
+  object-fit: cover;
+  flex-shrink: 0;
+}
+
+.looply-nav-badge {
+  background: var(--looply-pink);
+  color: white;
+  font-size: 10px;
+  font-weight: 800;
+  padding: 1px 6px;
+  border-radius: var(--radius-full);
+  margin-left: auto;
 }
