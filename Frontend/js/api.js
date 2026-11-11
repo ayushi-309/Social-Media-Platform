@@ -1,7 +1,7 @@
 // API Client with automatic token attachment and base URL detection
 const API_BASE = window.location.origin.includes('5000')
   ? `${window.location.origin}/api`
-  : 'http://localhost:5000/api';
+  : 'https://social-media-platform-fcg2.onrender.com/api';
 
 const api = {
   getToken() {
