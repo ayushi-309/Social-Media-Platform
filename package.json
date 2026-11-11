@@ -1,0 +1,14 @@
+{
+  "name": "looply-social-platform",
+  "version": "1.0.0",
+  "description": "Looply — Stay in the Loop. A modern social media platform with stories, feeds, profiles, comments, and like/follow system.",
+  "scripts": {
+    "start": "node Backend/server.js",
+    "dev": "nodemon Backend/server.js",
+    "seed": "node Backend/seed.js"
+  },
+  "keywords": ["social-media", "express", "mongodb", "javascript"],
+  "author": "",
+  "license": "ISC"
+}
+
