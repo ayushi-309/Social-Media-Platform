@@ -64,6 +64,25 @@ const auth = {
     return data;
   },
 
+  async loginWithDemoUser(username = 'ayushi') {
+    try {
+      await this.login(username, 'password123');
+      return true;
+    } catch (e) {
+      const demoUsers = {
+        'ayushi': { _id: 'demo-ayushi-id', name: 'Ayushi Tiwari', username: 'ayushi', avatar: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=120', followersCount: 1420, followingCount: 310 },
+        'alex': { _id: 'demo-alex-id', name: 'Alex Rivera', username: 'alex', avatar: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=120', followersCount: 980, followingCount: 240 },
+        'sarah_tech': { _id: 'demo-sarah-id', name: 'Sarah Chen', username: 'sarah_tech', avatar: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=120', followersCount: 2300, followingCount: 412 }
+      };
+      const user = demoUsers[username] || demoUsers['ayushi'];
+      this.currentUser = user;
+      api.setToken('demo-token-12345');
+      localStorage.setItem('user', JSON.stringify(user));
+      this.updateUserUI();
+      return true;
+    }
+  },
+
   logout() {
     api.setToken(null);
     this.currentUser = null;

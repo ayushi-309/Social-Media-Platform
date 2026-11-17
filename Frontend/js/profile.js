@@ -119,6 +119,12 @@ const profile = {
             </svg>
             TIMELINE
           </div>
+          <div class="looply-profile-tab-btn" id="tab-profile-saved" onclick="profile.switchViewTab('saved')">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M19 21l-7-5-7 5V5a2 2 0 012-2h10a2 2 0 012 2z"/>
+            </svg>
+            SAVED
+          </div>
         </div>
 
         <!-- Profile Content Stream -->
@@ -171,16 +177,24 @@ const profile = {
     this.activeTab = tab;
     const tabGrid = document.getElementById('tab-profile-grid');
     const tabFeed = document.getElementById('tab-profile-feed');
+    const tabSaved = document.getElementById('tab-profile-saved');
     const stream = document.getElementById('profile-content-stream');
     if (!stream) return;
 
+    [tabGrid, tabFeed, tabSaved].forEach((t) => t && t.classList.remove('active'));
+
     if (tab === 'feed') {
       if (tabFeed) tabFeed.classList.add('active');
-      if (tabGrid) tabGrid.classList.remove('active');
       stream.innerHTML = this.renderFeedTimeline(this.userPosts);
+    } else if (tab === 'saved') {
+      if (tabSaved) tabSaved.classList.add('active');
+      const bookmarkedIds = app.getBookmarks();
+      const savedPosts = feed.posts.filter((p) => bookmarkedIds.includes(p._id));
+      stream.innerHTML = savedPosts.length > 0
+        ? this.renderGrid(savedPosts)
+        : '<div class="state-empty"><p>No saved loops yet. Tap the ribbon on any post to bookmark it!</p></div>';
     } else {
       if (tabGrid) tabGrid.classList.add('active');
-      if (tabFeed) tabFeed.classList.remove('active');
       stream.innerHTML = this.renderGrid(this.userPosts);
     }
   },
