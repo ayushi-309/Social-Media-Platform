@@ -86,6 +86,18 @@ const app = {
         }, 300);
       });
     }
+
+    // Direct event listeners for mobile bottom dock
+    document.getElementById('bnav-feed')?.addEventListener('click', (e) => { e.preventDefault(); this.navigateTo('feed'); });
+    document.getElementById('bnav-explore')?.addEventListener('click', (e) => { e.preventDefault(); this.navigateTo('explore'); });
+    document.getElementById('bnav-create')?.addEventListener('click', (e) => { e.preventDefault(); this.showCreatePostModal(); });
+    document.getElementById('bnav-reels')?.addEventListener('click', (e) => { e.preventDefault(); this.navigateTo('reels'); });
+    document.getElementById('bnav-profile')?.addEventListener('click', (e) => { e.preventDefault(); this.navigateTo('profile'); });
+
+    // Direct event listeners for mobile header buttons
+    document.getElementById('mobile-nav-notifications')?.addEventListener('click', (e) => { e.preventDefault(); this.navigateTo('notifications'); });
+    document.getElementById('mobile-nav-messages')?.addEventListener('click', (e) => { e.preventDefault(); this.navigateTo('messages'); });
+    document.getElementById('mobile-nav-bookmarks')?.addEventListener('click', (e) => { e.preventDefault(); this.navigateTo('bookmarks'); });
   },
 
   renderLoopsTray() {
@@ -304,7 +316,7 @@ const app = {
     const sideBar = document.getElementById('looply-right-sidebar');
 
     // Remove active state across all nav items and mobile header actions
-    document.querySelectorAll('.looply-nav-item, .looply-btn-icon').forEach((i) => i.classList.remove('active'));
+    document.querySelectorAll('.looply-nav-item, .looply-bnav-btn, .looply-btn-icon').forEach((i) => i.classList.remove('active'));
 
     // Handle right sidebar visibility
     if (sideBar) {
@@ -321,9 +333,11 @@ const app = {
       if (v) v.style.display = 'none';
     });
 
-    // Mark current active nav buttons
+    // Mark current active nav buttons on desktop, mobile dock, and mobile header
     const activeNav = document.getElementById(`nav-${view}`);
     if (activeNav) activeNav.classList.add('active');
+    const mobileBottomNav = document.getElementById(`bnav-${view}`);
+    if (mobileBottomNav) mobileBottomNav.classList.add('active');
     const mobileHeaderBtn = document.getElementById(`mobile-nav-${view}`);
     if (mobileHeaderBtn) mobileHeaderBtn.classList.add('active');
 
@@ -1150,6 +1164,11 @@ const app = {
     return str.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
   }
 };
+
+// Global attachment
+if (typeof window !== 'undefined') {
+  window.app = app;
+}
 
 document.addEventListener('DOMContentLoaded', () => {
   app.init();

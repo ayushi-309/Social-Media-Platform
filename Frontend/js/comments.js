@@ -107,3 +107,7 @@ const comments = {
     }
   }
 };
+
+if (typeof window !== 'undefined') {
+  window.comments = comments;
+}

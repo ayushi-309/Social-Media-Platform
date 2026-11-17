@@ -10,7 +10,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
   <!-- Stylesheet -->
-  <link rel="stylesheet" href="css/style.css?v=3.1" />
+  <link rel="stylesheet" href="css/style.css?v=4.0" />
 </head>
 <body>
 
@@ -282,6 +282,45 @@
 
     </main>
 
+    <!-- MOBILE BOTTOM NAVIGATION (Instagram/Threads Style 5-Tab Dock) -->
+    <nav class="looply-bottom-nav">
+      <!-- 1. Home / Feed -->
+      <button class="looply-bnav-btn active" id="bnav-feed" onclick="app.navigateTo('feed')" title="Feed">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
+        </svg>
+      </button>
+
+      <!-- 2. Explore / Search -->
+      <button class="looply-bnav-btn" id="bnav-explore" onclick="app.navigateTo('explore')" title="Explore">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <circle cx="12" cy="12" r="10"/>
+          <polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"/>
+        </svg>
+      </button>
+
+      <!-- 3. Create Loop (Elevated Floating Center Button) -->
+      <button class="looply-bnav-create-btn" id="bnav-create" onclick="app.showCreatePostModal()" title="Create New Loop">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+          <line x1="12" y1="5" x2="12" y2="19"/>
+          <line x1="5" y1="12" x2="19" y2="12"/>
+        </svg>
+      </button>
+
+      <!-- 4. Reels -->
+      <button class="looply-bnav-btn" id="bnav-reels" onclick="app.navigateTo('reels')" title="Reels">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <rect x="2" y="2" width="20" height="20" rx="5"/>
+          <path d="M10 8l6 4-6 4V8z" fill="currentColor"/>
+        </svg>
+      </button>
+
+      <!-- 5. Profile -->
+      <button class="looply-bnav-btn" id="bnav-profile" onclick="app.navigateTo('profile')" title="Profile">
+        <img src="https://api.dicebear.com/7.x/identicon/svg?seed=guest" id="mobile-user-avatar" class="looply-bnav-avatar" alt="Profile" />
+      </button>
+    </nav>
+
   </div>
 
   <!-- CREATE NEW LOOP / POST MODAL -->
@@ -450,11 +489,11 @@
   <div class="toast-container" id="toast-container"></div>
 
   <!-- SCRIPTS -->
-  <script src="js/api.js?v=3.1"></script>
-  <script src="js/auth.js?v=3.1"></script>
-  <script src="js/comments.js?v=3.1"></script>
-  <script src="js/feed.js?v=3.1"></script>
-  <script src="js/profile.js?v=3.1"></script>
-  <script src="js/app.js?v=3.1"></script>
+  <script src="js/api.js?v=4.0"></script>
+  <script src="js/auth.js?v=4.0"></script>
+  <script src="js/comments.js?v=4.0"></script>
+  <script src="js/feed.js?v=4.0"></script>
+  <script src="js/profile.js?v=4.0"></script>
+  <script src="js/app.js?v=4.0"></script>
 </body>
 </html>

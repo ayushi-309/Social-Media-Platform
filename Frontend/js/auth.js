@@ -107,6 +107,7 @@ const auth = {
   updateUserUI() {
     const user = this.currentUser;
     const navAvatar = document.getElementById('sidebar-user-avatar');
+    const mobileAvatar = document.getElementById('mobile-user-avatar');
     const sideUserBox = document.getElementById('looply-side-current-user');
     const loginPrompt = document.getElementById('login-prompt-btn');
     const logoutBtn = document.getElementById('logout-btn');
@@ -114,6 +115,7 @@ const auth = {
     if (user) {
       const avatarUrl = user.avatar || `https://api.dicebear.com/7.x/identicon/svg?seed=${user.username}`;
       if (navAvatar) navAvatar.src = avatarUrl;
+      if (mobileAvatar) mobileAvatar.src = avatarUrl;
 
       if (sideUserBox) {
         sideUserBox.style.display = 'flex';
@@ -135,3 +137,7 @@ const auth = {
     }
   }
 };
+
+if (typeof window !== 'undefined') {
+  window.auth = auth;
+}

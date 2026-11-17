@@ -241,3 +241,7 @@ const feed = {
     }
   }
 };
+
+if (typeof window !== 'undefined') {
+  window.feed = feed;
+}

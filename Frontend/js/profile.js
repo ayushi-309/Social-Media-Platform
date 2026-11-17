@@ -277,3 +277,7 @@ const profile = {
     }
   }
 };
+
+if (typeof window !== 'undefined') {
+  window.profile = profile;
+}
