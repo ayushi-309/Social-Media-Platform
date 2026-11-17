@@ -14,7 +14,10 @@ const profile = {
     if (feedView) feedView.style.display = 'none';
     if (exploreView) exploreView.style.display = 'none';
     if (bookmarksView) bookmarksView.style.display = 'none';
-    if (sideBar) sideBar.style.display = 'none';
+    if (sideBar) {
+      sideBar.classList.add('hidden-sidebar');
+      sideBar.style.removeProperty('display');
+    }
 
     if (profileView) {
       profileView.style.display = 'block';

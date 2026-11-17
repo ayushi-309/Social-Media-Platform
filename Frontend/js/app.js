@@ -156,6 +156,7 @@ const app = {
 
     // Toggle right sidebar only via class, never inline display
     if (sideBar) {
+      sideBar.style.removeProperty('display');
       if (view === 'feed') {
         sideBar.classList.remove('hidden-sidebar');
       } else {
