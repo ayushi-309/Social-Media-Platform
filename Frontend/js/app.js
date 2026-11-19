@@ -361,11 +361,7 @@ const app = {
       if (views.bookmarks) views.bookmarks.style.display = 'block';
       this.loadBookmarksPage();
     } else if (view === 'profile') {
-      const identifier = param || (auth.currentUser ? auth.currentUser.username : null);
-      if (!identifier) {
-        this.showAuthModal('login');
-        return;
-      }
+      const identifier = param || (auth.currentUser ? auth.currentUser.username : 'ayushi');
       if (views.profile) views.profile.style.display = 'block';
       profile.loadProfile(identifier);
     }

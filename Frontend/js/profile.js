@@ -6,14 +6,12 @@ const profile = {
 
   async loadProfile(identifier) {
     const profileView = document.getElementById('profile-view');
-    const feedView = document.getElementById('feed-view');
-    const exploreView = document.getElementById('explore-view');
-    const bookmarksView = document.getElementById('bookmarks-view');
     const sideBar = document.getElementById('looply-right-sidebar');
 
-    if (feedView) feedView.style.display = 'none';
-    if (exploreView) exploreView.style.display = 'none';
-    if (bookmarksView) bookmarksView.style.display = 'none';
+    // Hide all view containers
+    document.querySelectorAll('.looply-feed-container').forEach((c) => {
+      if (c.id !== 'profile-view') c.style.display = 'none';
+    });
     if (sideBar) {
       sideBar.classList.add('hidden-sidebar');
       sideBar.style.removeProperty('display');
